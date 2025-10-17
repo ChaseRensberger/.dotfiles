@@ -83,9 +83,12 @@ require("lazy").setup({
 			dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
 		}
 	},
-	-- automatically check for plugin updates
 	checker = { enabled = false },
 })
+
+require("remote-sshfs").setup()
+local api = require('remote-sshfs.api')
+vim.keymap.set('n', '<leader>rc', api.connect, {})
 
 require("telescope").setup({
 	pickers = {
