@@ -78,6 +78,10 @@ require("lazy").setup({
 		{ "rafamadriz/friendly-snippets" },
 		{ "numToStr/Comment.nvim" },
 		{ "m4xshen/autoclose.nvim" },
+		{
+			"nosduco/remote-sshfs.nvim",
+			dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
+		}
 	},
 	-- automatically check for plugin updates
 	checker = { enabled = false },
@@ -88,6 +92,7 @@ require("telescope").setup({
 		find_files = {
 			hidden = true,
 			no_ignore = true,
+			file_ignore_patterns = { "^.git/" },
 		},
 	}
 })
