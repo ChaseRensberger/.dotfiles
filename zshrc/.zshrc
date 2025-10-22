@@ -14,4 +14,3 @@ export PATH=/home/chase/.opencode/bin:$PATH
 
 alias ff=fastfetch
 alias open=xdg-open
-
