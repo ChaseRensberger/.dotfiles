@@ -131,20 +131,11 @@ require("nvim-treesitter.configs").setup({
 		"cpp",
 		"scala",
 	},
-
-	-- Install parsers synchronously (only applied to `ensure_installed`)
 	sync_install = false,
-
-	-- Automatically install missing parsers when entering buffer
-	-- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
 	auto_install = true,
 
 	highlight = {
 		enable = true,
-		-- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-		-- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-		-- Using this option may slow down your editor, and you may see some duplicate highlights.
-		-- Instead of true it can also be a list of languages
 		additional_vim_regex_highlighting = false,
 	},
 })
@@ -174,7 +165,7 @@ cmp.setup({
 
 require("mason").setup()
 require("mason-lspconfig").setup({
-	ensure_installed = { "lua_ls", "ts_ls", "gopls", "html", "cssls", "rust_analyzer", "clangd" },
+	ensure_installed = { "lua_ls", "ts_ls", "gopls", "html", "cssls", "rust_analyzer", "clangd", "ruff" },
 	automatic_installation = true,
 	automatic_enable = true,
 })
@@ -196,6 +187,14 @@ vim.lsp.config.lua_ls = {
 	},
 }
 
+vim.lsp.config('ruff', {
+	init_options = {
+		settings = {
+			logLevel = 'debug',
+		}
+	}
+})
+
 local servers_with_defaults = { "rust_analyzer", "ts_ls", "gopls", "html", "cssls", "clangd" }
 
 for _, server in ipairs(servers_with_defaults) do
@@ -214,7 +213,7 @@ require("conform").setup({
 		css = { "prettierd" },
 		go = { "gofumpt" },
 		rust = { "rust-analyzer" },
-		-- python = { "ruff_fix", "ruff_format" },
+		python = { "ruff_fix", "ruff_format", "ruff_organize_imports" },
 		cpp = { "clang-format" },
 	},
 	formatters = {
