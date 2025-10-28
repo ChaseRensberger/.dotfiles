@@ -86,6 +86,14 @@ require("lazy").setup({
 	checker = { enabled = false },
 })
 
+vim.cmd("colorscheme melange")
+vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+
+vim.api.nvim_create_user_command("Light", function()
+	vim.opt.background = "light"
+end, {})
+
 require("remote-sshfs").setup()
 local api = require("remote-sshfs.api")
 vim.keymap.set("n", "<leader>rc", api.connect, {})
@@ -106,10 +114,6 @@ vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Telescope live gr
 vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Telescope buffers" })
 vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Telescope help tags" })
 
-vim.cmd("colorscheme melange")
-
-vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 ---@diagnostic disable-next-line: missing-fields
 require("nvim-treesitter.configs").setup({
 	ensure_installed = {
