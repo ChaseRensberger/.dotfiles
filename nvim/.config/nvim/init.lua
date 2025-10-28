@@ -20,7 +20,7 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 	if vim.v.shell_error ~= 0 then
 		vim.api.nvim_echo({
 			{ "Failed to clone lazy.nvim:\n", "ErrorMsg" },
-			{ out,                            "WarningMsg" },
+			{ out, "WarningMsg" },
 			{ "\nPress any key to exit..." },
 		}, true, {})
 		vim.fn.getchar()
@@ -52,7 +52,7 @@ require("lazy").setup({
 			dependencies = { "nvim-lua/plenary.nvim" },
 		},
 		{
-			'ThePrimeagen/harpoon',
+			"ThePrimeagen/harpoon",
 			branch = "harpoon2",
 			dependencies = { "nvim-lua/plenary.nvim" },
 		},
@@ -80,15 +80,15 @@ require("lazy").setup({
 		{ "m4xshen/autoclose.nvim" },
 		{
 			"nosduco/remote-sshfs.nvim",
-			dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
-		}
+			dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
+		},
 	},
 	checker = { enabled = false },
 })
 
 require("remote-sshfs").setup()
-local api = require('remote-sshfs.api')
-vim.keymap.set('n', '<leader>rc', api.connect, {})
+local api = require("remote-sshfs.api")
+vim.keymap.set("n", "<leader>rc", api.connect, {})
 
 require("telescope").setup({
 	pickers = {
@@ -97,7 +97,7 @@ require("telescope").setup({
 			no_ignore = true,
 			file_ignore_patterns = { "^.git/" },
 		},
-	}
+	},
 })
 
 local builtin = require("telescope.builtin")
@@ -105,7 +105,6 @@ vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Telescope find f
 vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Telescope live grep" })
 vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Telescope buffers" })
 vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Telescope help tags" })
-
 
 vim.cmd("colorscheme melange")
 
@@ -129,7 +128,6 @@ require("nvim-treesitter.configs").setup({
 		"python",
 		"terraform",
 		"cpp",
-		"scala",
 	},
 	sync_install = false,
 	auto_install = true,
@@ -152,7 +150,7 @@ cmp.setup({
 		["<C-b>"] = cmp.mapping.scroll_docs(-4),
 		["<C-f>"] = cmp.mapping.scroll_docs(4),
 		["<C-Space>"] = cmp.mapping.complete(),
-		["<-e>"] = cmp.mapping.abort(),
+		["<C-e>"] = cmp.mapping.abort(),
 		["<CR>"] = cmp.mapping.confirm({ select = true }),
 	}),
 	sources = cmp.config.sources({
@@ -187,12 +185,12 @@ vim.lsp.config.lua_ls = {
 	},
 }
 
-vim.lsp.config('ruff', {
+vim.lsp.config("ruff", {
 	init_options = {
 		settings = {
-			logLevel = 'debug',
-		}
-	}
+			logLevel = "debug",
+		},
+	},
 })
 
 local servers_with_defaults = { "rust_analyzer", "ts_ls", "gopls", "html", "cssls", "clangd" }
@@ -277,9 +275,9 @@ ls.add_snippets("typst", {
 		t({ "", "]" }),
 	}),
 	s("s", {
-		t("#scene(\""),
+		t('#scene("'),
 		i(0, "scene"),
-		t({ "\")" }),
+		t({ '")' }),
 	}),
 	s("l", {
 		t("#line["),
@@ -287,23 +285,23 @@ ls.add_snippets("typst", {
 		t({ "]" }),
 	}),
 	s("c", {
-		t("#character(\""),
+		t('#character("'),
 		i(0, "character"),
-		t({ "\")" }),
+		t({ '")' }),
 	}),
 	s("p", {
-		t("#parenthetical(\""),
+		t('#parenthetical("'),
 		i(0, "parenthetical"),
-		t({ "\")" }),
+		t({ '")' }),
 	}),
 	s("start", {
-		t("#import \"template.typ\": *"),
+		t('#import "template.typ": *'),
 		t({ "", "" }),
 		t({ "", "" }),
 		t("#show: screenplay.with("),
-		t({ "", "  title: \"" }),
+		t({ "", '  title: "' }),
 		i(0, "title"),
-		t("\""),
+		t('"'),
 		t({ "", ")" }),
 	}),
 })
@@ -317,19 +315,27 @@ end, { silent = true })
 local harpoon = require("harpoon")
 harpoon:setup()
 
-vim.keymap.set("n", "<leader>ha", function() harpoon:list():add() end)
-vim.keymap.set("n", "<leader>hm", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
+vim.keymap.set("n", "<leader>ha", function()
+	harpoon:list():add()
+end)
+vim.keymap.set("n", "<leader>hm", function()
+	harpoon.ui:toggle_quick_menu(harpoon:list())
+end)
 
 for i = 1, 6 do
-	vim.keymap.set("n", string.format("<leader>h%d", i), function() harpoon:list():replace_at(i) end)
-	vim.keymap.set("n", string.format("<leader>hd%d", i), function() harpoon:list():remove_at(i) end)
-	vim.keymap.set("n", string.format("<leader>%d", i), function() harpoon:list():select(i) end)
+	vim.keymap.set("n", string.format("<leader>h%d", i), function()
+		harpoon:list():replace_at(i)
+	end)
+	vim.keymap.set("n", string.format("<leader>hd%d", i), function()
+		harpoon:list():remove_at(i)
+	end)
+	vim.keymap.set("n", string.format("<leader>%d", i), function()
+		harpoon:list():select(i)
+	end)
 end
 
-vim.keymap.set("n", "<leader>hc",
-	function()
-		for i = 1, 6 do
-			harpoon:list():remove_at(i)
-		end
+vim.keymap.set("n", "<leader>hc", function()
+	for i = 1, 6 do
+		harpoon:list():remove_at(i)
 	end
-)
+end)
