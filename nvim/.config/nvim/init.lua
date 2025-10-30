@@ -82,11 +82,20 @@ require("lazy").setup({
 			"nosduco/remote-sshfs.nvim",
 			dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
 		},
+		{
+			"zaldih/themery.nvim",
+			lazy = false,
+			config = function()
+				require("themery").setup({
+					themes = { "rose-pine", "melange" },
+					livePreview = true,
+				})
+			end,
+		},
 	},
 	checker = { enabled = false },
 })
 
-vim.cmd("colorscheme melange")
 vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
 vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 
