@@ -97,6 +97,16 @@ require("lazy").setup({
 				})
 			end,
 		},
+		{
+			dir = "/home/chase/Projects/adventure-log",
+			name = "adventure-log",
+			config = function()
+				require('adventure-log').setup({})
+			end,
+			keys = {
+				{ "<leader>al", "<cmd>AdventureLog<cr>", desc = "Adventure Log" }
+			}
+		}
 	},
 	checker = { enabled = false },
 })
@@ -125,8 +135,11 @@ require("telescope").setup({
 		find_files = {
 			hidden = true,
 			no_ignore = true,
-			file_ignore_patterns = { "^.git/" },
+			file_ignore_patterns = { "^.git/", "^.venv/" },
 		},
+		live_grep = {
+			file_ignore_patterns = { "^.git/", "^.venv/" },
+		}
 	},
 })
 
