@@ -211,15 +211,16 @@ vim.lsp.config.lua_ls = {
 	},
 }
 
-vim.lsp.config("ruff", {
+vim.lsp.config.ruff = {
+	capabilities = capabilities,
 	init_options = {
 		settings = {
 			logLevel = "debug",
 		},
 	},
-})
+}
 
-local servers_with_defaults = { "rust_analyzer", "ts_ls", "gopls", "html", "cssls", "clangd" }
+local servers_with_defaults = { "rust_analyzer", "ts_ls", "gopls", "html", "cssls", "clangd", "basedpyright" }
 
 for _, server in ipairs(servers_with_defaults) do
 	vim.lsp.config[server] = {
