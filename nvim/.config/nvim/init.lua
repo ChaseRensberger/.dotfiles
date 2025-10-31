@@ -47,6 +47,11 @@ require("lazy").setup({
 			lazy = false,
 		},
 		{
+			'Mofiqul/dracula.nvim',
+			name = "dracula",
+			lazy = false
+		},
+		{
 			"nvim-telescope/telescope.nvim",
 			tag = "0.1.8",
 			dependencies = { "nvim-lua/plenary.nvim" },
@@ -87,7 +92,7 @@ require("lazy").setup({
 			lazy = false,
 			config = function()
 				require("themery").setup({
-					themes = { "rose-pine", "melange" },
+					themes = { "rose-pine", "melange", "everforest", "dracula" },
 					livePreview = true,
 				})
 			end,
@@ -98,6 +103,14 @@ require("lazy").setup({
 
 vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
 vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+
+vim.api.nvim_create_autocmd("ColorScheme", {
+	pattern = "*",
+	callback = function()
+		vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+		vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+	end,
+})
 
 vim.api.nvim_create_user_command("Light", function()
 	vim.opt.background = "light"
