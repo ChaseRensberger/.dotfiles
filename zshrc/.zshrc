@@ -14,3 +14,4 @@ export PATH=/home/chase/.local/bin:$PATH
 
 alias ff=fastfetch
 alias open=xdg-open
+alias dm=download-music

@@ -104,7 +104,7 @@ require("lazy").setup({
 				require('adventure-log').setup({})
 			end,
 			keys = {
-				{ "<leader>al", "<cmd>AdventureLog<cr>", desc = "Adventure Log" }
+				{ "<leader>a", "<cmd>AdventureLog<cr>", desc = "Adventure Log" }
 			}
 		}
 	},
