@@ -11,6 +11,7 @@ source $ZSH/oh-my-zsh.sh
 
 export PATH=$HOME/.asdf/shims:$PATH
 export PATH=/home/chase/.local/bin:$PATH
+export PATH=/home/chase/.opencode/bin:$PATH
 
 alias ff=fastfetch
 alias open=xdg-open
