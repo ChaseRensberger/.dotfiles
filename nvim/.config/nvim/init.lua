@@ -96,16 +96,6 @@ require("lazy").setup({
 					livePreview = true,
 				})
 			end,
-		},
-		{
-			dir = "/home/chase/Projects/adventure-log",
-			name = "adventure-log",
-			config = function()
-				require('adventure-log').setup({})
-			end,
-			keys = {
-				{ "<leader>a", "<cmd>AdventureLog<cr>", desc = "Adventure Log" }
-			}
 		}
 	},
 	checker = { enabled = false },
