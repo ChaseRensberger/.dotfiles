@@ -4,6 +4,24 @@ vim.keymap.set("n", "<leader>b", "<C-^>", { desc = "Jump to previous buffer" })
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { desc = "Show diagnostic message" })
+vim.keymap.set("n", "<leader>cd", function()
+	local line = vim.api.nvim_win_get_cursor(0)[1] - 1
+	local diagnostics = vim.diagnostic.get(0, { lnum = line })
+
+	if #diagnostics == 0 then
+		vim.notify("No diagnostic on this line", vim.log.levels.INFO)
+		return
+	end
+
+	local messages = {}
+	for _, diagnostic in ipairs(diagnostics) do
+		table.insert(messages, diagnostic.message)
+	end
+
+	local text = table.concat(messages, "\n")
+	vim.fn.setreg("+", text)
+	vim.notify("Diagnostic copied to clipboard", vim.log.levels.INFO)
+end, { desc = "Copy diagnostic message to clipboard" })
 vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename)
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
