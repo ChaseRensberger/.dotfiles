@@ -86,11 +86,16 @@ require("lazy").setup({
 			lazy = false,
 		},
 		{
+			"chaserensberger/christmas.nvim",
+			name = "christmas",
+			lazy = false,
+		},
+		{
 			"zaldih/themery.nvim",
 			lazy = false,
 			config = function()
 				require("themery").setup({
-					themes = { "rose-pine", "melange", "everforest", "dracula", "gruvbox", "catppuccin", "cyberdream" },
+					themes = { "rose-pine", "melange", "everforest", "dracula", "gruvbox", "catppuccin", "cyberdream", "christmas" },
 					livePreview = true,
 				})
 			end,
