@@ -29,6 +29,7 @@ vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.clipboard = "unnamedplus"
 vim.opt.termguicolors = true
+local transparent = false
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 ---@diagnostic disable-next-line: undefined-field
@@ -70,6 +71,21 @@ require("lazy").setup({
 			lazy = false
 		},
 		{
+			"ellisonleao/gruvbox.nvim",
+			name = "gruvbox",
+			lazy = false
+		},
+		{
+			"zaldih/themery.nvim",
+			lazy = false,
+			config = function()
+				require("themery").setup({
+					themes = { "rose-pine", "melange", "everforest", "dracula" },
+					livePreview = true,
+				})
+			end,
+		},
+		{
 			"nvim-telescope/telescope.nvim",
 			tag = "0.1.8",
 			dependencies = { "nvim-lua/plenary.nvim" },
@@ -88,10 +104,7 @@ require("lazy").setup({
 			"williamboman/mason-lspconfig.nvim",
 			"neovim/nvim-lspconfig",
 		},
-		{
-			"stevearc/conform.nvim",
-			opts = {},
-		},
+		{ "stevearc/conform.nvim" },
 		{ "hrsh7th/cmp-nvim-lsp" },
 		{ "hrsh7th/cmp-buffer" },
 		{ "hrsh7th/cmp-path" },
@@ -105,34 +118,24 @@ require("lazy").setup({
 			"nosduco/remote-sshfs.nvim",
 			dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
 		},
-		{
-			"zaldih/themery.nvim",
-			lazy = false,
-			config = function()
-				require("themery").setup({
-					themes = { "rose-pine", "melange", "everforest", "dracula" },
-					livePreview = true,
-				})
-			end,
-		}
 	},
 	checker = { enabled = false },
 })
 
--- vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
--- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+if transparent then
+	vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+	vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+end
 
 vim.api.nvim_create_autocmd("ColorScheme", {
 	pattern = "*",
 	callback = function()
-		vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-		vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+		if transparent then
+			vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+			vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+		end
 	end,
 })
-
-vim.api.nvim_create_user_command("Light", function()
-	vim.opt.background = "light"
-end, {})
 
 require("remote-sshfs").setup()
 local api = require("remote-sshfs.api")
