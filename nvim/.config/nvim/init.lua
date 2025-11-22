@@ -68,19 +68,29 @@ require("lazy").setup({
 		{
 			'Mofiqul/dracula.nvim',
 			name = "dracula",
-			lazy = false
+			lazy = false,
 		},
 		{
 			"ellisonleao/gruvbox.nvim",
 			name = "gruvbox",
-			lazy = false
+			lazy = false,
+		},
+		{
+			"catppuccin/nvim",
+			name = "catppuccin",
+			lazy = false,
+		},
+		{
+			"scottmckendry/cyberdream.nvim",
+			name = "cyberdream",
+			lazy = false,
 		},
 		{
 			"zaldih/themery.nvim",
 			lazy = false,
 			config = function()
 				require("themery").setup({
-					themes = { "rose-pine", "melange", "everforest", "dracula", "gruvbox" },
+					themes = { "rose-pine", "melange", "everforest", "dracula", "gruvbox", "catppuccin", "cyberdream" },
 					livePreview = true,
 				})
 			end,
