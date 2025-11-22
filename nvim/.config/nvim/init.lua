@@ -80,7 +80,7 @@ require("lazy").setup({
 			lazy = false,
 			config = function()
 				require("themery").setup({
-					themes = { "rose-pine", "melange", "everforest", "dracula" },
+					themes = { "rose-pine", "melange", "everforest", "dracula", "gruvbox" },
 					livePreview = true,
 				})
 			end,
