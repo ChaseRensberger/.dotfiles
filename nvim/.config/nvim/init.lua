@@ -119,6 +119,10 @@ require("lazy").setup({
 			"williamboman/mason-lspconfig.nvim",
 			"neovim/nvim-lspconfig",
 		},
+		{
+			'nvim-lualine/lualine.nvim',
+			requires = { 'nvim-tree/nvim-web-devicons', opt = true }
+		},
 		{ "stevearc/conform.nvim" },
 		{ "hrsh7th/cmp-nvim-lsp" },
 		{ "hrsh7th/cmp-buffer" },
@@ -151,6 +155,9 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 		end
 	end,
 })
+
+require('lualine').setup()
+
 
 require("remote-sshfs").setup()
 local api = require("remote-sshfs.api")
