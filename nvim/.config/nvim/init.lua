@@ -26,6 +26,7 @@ vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename)
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.number = true
+vim.opt.showmode = false
 vim.opt.relativenumber = true
 vim.opt.clipboard = "unnamedplus"
 vim.opt.termguicolors = true
@@ -156,7 +157,11 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 	end,
 })
 
-require('lualine').setup()
+require('lualine').setup({
+	sections = {
+		lualine_x = {}
+	}
+})
 
 
 require("remote-sshfs").setup()
