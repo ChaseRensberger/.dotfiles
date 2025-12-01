@@ -101,6 +101,7 @@ require("lazy").setup({
 				})
 			end,
 		},
+		{ 'norcalli/nvim-colorizer.lua' },
 		{
 			"nvim-telescope/telescope.nvim",
 			tag = "0.1.8",
@@ -160,6 +161,14 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 require('lualine').setup({
 	sections = {
 		lualine_x = {}
+	}
+})
+
+require('colorizer').setup({
+	'css',
+	'javascript',
+	html = {
+		mode = 'foreground',
 	}
 })
 
