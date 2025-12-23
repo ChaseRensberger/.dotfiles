@@ -135,6 +135,7 @@ require("lazy").setup({
 		{ "rafamadriz/friendly-snippets" },
 		{ "numToStr/Comment.nvim" },
 		{ "m4xshen/autoclose.nvim" },
+		{ "lewis6991/gitsigns.nvim" },
 		{
 			"nosduco/remote-sshfs.nvim",
 			dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
@@ -157,6 +158,18 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 		end
 	end,
 })
+
+require("gitsigns").setup({
+	current_line_blame = false,
+	current_line_blame_opts = {
+		virt_text_pos = 'eol',
+		delay = 0,
+	},
+})
+
+vim.keymap.set("n", "<leader>gb", function()
+	require("gitsigns").toggle_current_line_blame()
+end, { desc = "Toggle git blame" })
 
 require('lualine').setup({
 	sections = {
