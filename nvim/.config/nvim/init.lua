@@ -83,6 +83,11 @@ require("lazy").setup({
 			lazy = false,
 		},
 		{
+			"arcticicestudio/nord-vim",
+			name = "nord",
+			lazy = false,
+		},
+		{
 			"scottmckendry/cyberdream.nvim",
 			name = "cyberdream",
 			lazy = false,
@@ -97,7 +102,7 @@ require("lazy").setup({
 			lazy = false,
 			config = function()
 				require("themery").setup({
-					themes = { "rose-pine", "melange", "everforest", "dracula", "gruvbox", "catppuccin", "cyberdream", "christmas" },
+					themes = { "rose-pine", "melange", "everforest", "dracula", "gruvbox", "catppuccin", "cyberdream", "christmas", "nord" },
 					livePreview = true,
 				})
 			end,
