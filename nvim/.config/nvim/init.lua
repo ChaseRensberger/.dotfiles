@@ -53,28 +53,13 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
 	spec = {
 		{
-			"rose-pine/neovim",
-			name = "rose-pine",
+			"Shatur/neovim-ayu",
+			name = "ayu",
 			lazy = false,
 		},
 		{
-			"neanias/everforest-nvim",
-			name = "everforest",
-			lazy = false,
-		},
-		{
-			"savq/melange-nvim",
-			name = "melange",
-			lazy = false,
-		},
-		{
-			'Mofiqul/dracula.nvim',
-			name = "dracula",
-			lazy = false,
-		},
-		{
-			"ellisonleao/gruvbox.nvim",
-			name = "gruvbox",
+			"EdenEast/nightfox.nvim",
+			name = "carbonfox",
 			lazy = false,
 		},
 		{
@@ -83,13 +68,103 @@ require("lazy").setup({
 			lazy = false,
 		},
 		{
-			"arcticicestudio/nord-vim",
+			"lalitmee/cobalt2.nvim",
+			name = "cobalt2",
+			lazy = false,
+		},
+		{
+			'Mofiqul/dracula.nvim',
+			name = "dracula",
+			lazy = false,
+		},
+		{
+			"sainnhe/everforest",
+			name = "everforest",
+			lazy = false,
+		},
+		{
+			"kepano/flexoki-neovim",
+			name = "flexoki",
+			lazy = false,
+		},
+		{
+			"projekt0n/github-nvim-theme",
+			name = "github-theme",
+			lazy = false,
+		},
+		{
+			"ellisonleao/gruvbox.nvim",
+			name = "gruvbox",
+			lazy = false,
+		},
+		{
+			"rebelot/kanagawa.nvim",
+			name = "kanagawa",
+			lazy = false,
+		},
+		{
+			"marko-cerovac/material.nvim",
+			name = "material",
+			lazy = false,
+		},
+		{
+			"tanvirtin/monokai.nvim",
+			name = "monokai",
+			lazy = false,
+		},
+		{
+			"oxfist/night-owl.nvim",
+			name = "night-owl",
+			lazy = false,
+		},
+		{
+			"shaunsingh/nord.nvim",
 			name = "nord",
 			lazy = false,
 		},
 		{
-			"scottmckendry/cyberdream.nvim",
-			name = "cyberdream",
+			"navarasu/onedark.nvim",
+			name = "onedark",
+			lazy = false,
+		},
+		{
+			"craftzdog/solarized-osaka.nvim",
+			name = "osaka-jade",
+			lazy = false,
+		},
+		{
+			"drewtempelmeyer/palenight.vim",
+			name = "palenight",
+			lazy = false,
+		},
+		{
+			"rose-pine/neovim",
+			name = "rosepine",
+			lazy = false,
+		},
+		{
+			"maxmx03/solarized.nvim",
+			name = "solarized",
+			lazy = false,
+		},
+		{
+			"lunarvim/synthwave84.nvim",
+			name = "synthwave84",
+			lazy = false,
+		},
+		{
+			"folke/tokyonight.nvim",
+			name = "tokyonight",
+			lazy = false,
+		},
+		{
+			"datsfilipe/vesper.nvim",
+			name = "vesper",
+			lazy = false,
+		},
+		{
+			"zenbones-theme/zenbones.nvim",
+			name = "zenburn",
 			lazy = false,
 		},
 		{
@@ -102,7 +177,32 @@ require("lazy").setup({
 			lazy = false,
 			config = function()
 				require("themery").setup({
-					themes = { "rose-pine", "melange", "everforest", "dracula", "gruvbox", "catppuccin", "cyberdream", "christmas", "nord" },
+					themes = {
+						"ayu",
+						"carbonfox",
+						"catppuccin",
+						"cobalt2",
+						"dracula",
+						"everforest",
+						"flexoki",
+						"github-theme",
+						"gruvbox",
+						"kanagawa",
+						"material",
+						"monokai",
+						"night-owl",
+						"nord",
+						"onedark",
+						"osaka-jade",
+						"palenight",
+						"rosepine",
+						"solarized",
+						"synthwave84",
+						"tokyonight",
+						"vesper",
+						"zenburn",
+						"christmas"
+					},
 					livePreview = true,
 				})
 			end,
