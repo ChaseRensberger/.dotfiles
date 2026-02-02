@@ -18,5 +18,6 @@ export PATH=/home/chase/.local/bin:$PATH
 export PATH=/home/chase/.opencode/bin:$PATH
 
 alias ff=fastfetch
+alias lg=lazygit
 alias open=xdg-open
 alias task=go-task
