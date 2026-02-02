@@ -266,13 +266,13 @@ require("lazy").setup({
 					{ desc = "Add line to opencode", expr = true })
 			end
 		},
-		{
-			"mfussenegger/nvim-dap",
-			dependencies = {
-				"rcarriga/nvim-dap-ui",
-				"nvim-neotest/nvim-nio",
-			},
-		}
+		-- {
+		-- 	"mfussenegger/nvim-dap",
+		-- 	dependencies = {
+		-- 		"rcarriga/nvim-dap-ui",
+		-- 		"nvim-neotest/nvim-nio",
+		-- 	},
+		-- }
 	},
 	checker = { enabled = false },
 })
@@ -574,47 +574,47 @@ vim.keymap.set("n", "<leader>hc", function()
 	end
 end)
 
-local dap = require("dap")
-local dapui = require("dapui")
+-- local dap = require("dap")
+-- local dapui = require("dapui")
+--
+-- dapui.setup()
+--
+-- dap.listeners.after.event_initialized["dapui_config"] = function()
+-- 	dapui.open()
+-- end
+-- dap.listeners.before.event_terminated["dapui_config"] = function()
+-- 	dapui.close()
+-- end
+-- dap.listeners.before.event_exited["dapui_config"] = function()
+-- 	dapui.close()
+-- end
+--
+-- dap.adapters.delve = {
+-- 	type = 'server',
+-- 	port = '${port}',
+-- 	executable = {
+-- 		command = 'dlv',
+-- 		args = { 'dap', '-l', '127.0.0.1:${port}' },
+-- 	}
+-- }
+--
+-- dap.configurations.go = {
+-- 	{
+-- 		type = "delve",
+-- 		name = "Debug",
+-- 		request = "launch",
+-- 		program = "${file}"
+-- 	}
+-- }
 
-dapui.setup()
-
-dap.listeners.after.event_initialized["dapui_config"] = function()
-	dapui.open()
-end
-dap.listeners.before.event_terminated["dapui_config"] = function()
-	dapui.close()
-end
-dap.listeners.before.event_exited["dapui_config"] = function()
-	dapui.close()
-end
-
-dap.adapters.delve = {
-	type = 'server',
-	port = '${port}',
-	executable = {
-		command = 'dlv',
-		args = { 'dap', '-l', '127.0.0.1:${port}' },
-	}
-}
-
-dap.configurations.go = {
-	{
-		type = "delve",
-		name = "Debug",
-		request = "launch",
-		program = "${file}"
-	}
-}
-
-vim.keymap.set("n", "<leader>db", dap.toggle_breakpoint, { desc = "Toggle breakpoint" })
-vim.keymap.set("n", "<leader>dc", dap.continue, { desc = "Continue" })
-vim.keymap.set("n", "<leader>di", dap.step_into, { desc = "Step into" })
-vim.keymap.set("n", "<leader>do", dap.step_over, { desc = "Step over" })
-vim.keymap.set("n", "<leader>du", dap.step_out, { desc = "Step out" })
-vim.keymap.set("n", "<leader>dt", function()
-	dap.terminate()
-	dapui.close()
-end, { desc = "Terminate" })
-vim.keymap.set("n", "<leader>dd", dapui.toggle, { desc = "Toggle DAP UI" })
-vim.keymap.set("n", "<leader>dr", dap.repl.open, { desc = "Open REPL" })
+-- vim.keymap.set("n", "<leader>db", dap.toggle_breakpoint, { desc = "Toggle breakpoint" })
+-- vim.keymap.set("n", "<leader>dc", dap.continue, { desc = "Continue" })
+-- vim.keymap.set("n", "<leader>di", dap.step_into, { desc = "Step into" })
+-- vim.keymap.set("n", "<leader>do", dap.step_over, { desc = "Step over" })
+-- vim.keymap.set("n", "<leader>du", dap.step_out, { desc = "Step out" })
+-- vim.keymap.set("n", "<leader>dt", function()
+-- 	dap.terminate()
+-- 	dapui.close()
+-- end, { desc = "Terminate" })
+-- vim.keymap.set("n", "<leader>dd", dapui.toggle, { desc = "Toggle DAP UI" })
+-- vim.keymap.set("n", "<leader>dr", dap.repl.open, { desc = "Open REPL" })
