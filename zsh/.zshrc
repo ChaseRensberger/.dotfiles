@@ -9,6 +9,7 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 
+[ -f ~/.secrets ] && source ~/.secrets
 
 export PATH=$HOME/.asdf/shims:$PATH
 export GOPATH=$HOME/.asdf/installs/golang/$(go version | grep -oP 'go\K[0-9.]+')
