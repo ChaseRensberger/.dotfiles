@@ -209,6 +209,18 @@ require("lazy").setup({
 		},
 		{ 'norcalli/nvim-colorizer.lua' },
 		{
+			"luckasRanarison/tailwind-tools.nvim",
+			dependencies = { "nvim-treesitter/nvim-treesitter" },
+		},
+		{
+			"roobert/tailwindcss-colorizer-cmp.nvim",
+			config = function()
+				require("tailwindcss-colorizer-cmp").setup({
+					color_square_width = 2,
+				})
+			end,
+		},
+		{
 			"nvim-telescope/telescope.nvim",
 			tag = "0.1.8",
 			dependencies = { "nvim-lua/plenary.nvim" },
@@ -246,26 +258,6 @@ require("lazy").setup({
 			"nosduco/remote-sshfs.nvim",
 			dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
 		},
-		-- {
-		-- 	"NickvanDyke/opencode.nvim",
-		-- 	dependencies = {
-		-- 		-- Recommended for `ask()` and `select()`.
-		-- 		-- Required for `snacks` provider.
-		-- 		---@module 'snacks' <- Loads `snacks.nvim` types for configuration intellisense.
-		-- 		{ "folke/snacks.nvim", opts = { input = {}, picker = {}, terminal = {} } },
-		-- 	},
-		-- 	config = function()
-		-- 		---@type opencode.Opts
-		-- 		vim.g.opencode_opts = {}
-		-- 		vim.o.autoread = true
-		-- 		vim.keymap.set({ "n", "x" }, "<C-a>",
-		-- 			function() require("opencode").ask("@this: ", { submit = true }) end, { desc = "Ask opencode…" })
-		-- 		vim.keymap.set({ "n", "x" }, "go", function() return require("opencode").operator("@this ") end,
-		-- 			{ desc = "Add range to opencode", expr = true })
-		-- 		vim.keymap.set("n", "goo", function() return require("opencode").operator("@this ") .. "_" end,
-		-- 			{ desc = "Add line to opencode", expr = true })
-		-- 	end
-		-- },
 		{
 			"Gentleman-Programming/veil.nvim",
 			event = "VeryLazy",
@@ -273,13 +265,6 @@ require("lazy").setup({
 				require("veil").setup()
 			end,
 		}
-		-- {
-		-- 	"mfussenegger/nvim-dap",
-		-- 	dependencies = {
-		-- 		"rcarriga/nvim-dap-ui",
-		-- 		"nvim-neotest/nvim-nio",
-		-- 	},
-		-- }
 	},
 	checker = { enabled = false },
 })
@@ -401,6 +386,9 @@ cmp.setup({
 	}, {
 		{ name = "buffer" },
 	}),
+	formatting = {
+		format = require("tailwindcss-colorizer-cmp").formatter,
+	},
 })
 
 require("mason").setup()
@@ -411,6 +399,17 @@ require("mason-lspconfig").setup({
 })
 
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
+
+vim.lsp.config.tailwindcss = {
+	capabilities = capabilities,
+	settings = {
+		tailwindCSS = {
+			experimental = {
+				configFile = vim.fs.joinpath(vim.fn.getcwd(), "clients/wui/shared/core/src/styles/globals.css"),
+			},
+		},
+	},
+}
 
 vim.lsp.config.lua_ls = {
 	capabilities = capabilities,
