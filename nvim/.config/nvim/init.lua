@@ -2,6 +2,75 @@ vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>e", vim.cmd.Ex)
 vim.keymap.set("n", "<leader>b", "<C-^>", { desc = "Jump to previous buffer" })
 vim.keymap.set("n", "<leader>q", "<cmd>edit ~/Documents/quick.md<CR>", { desc = "Open quick note" })
+
+-- Poor man's obsidian plugin
+local wikilink_root = vim.fs.normalize(vim.fn.expand("~/Documents"))
+
+local function feed_normal(keys)
+	local termcodes = vim.api.nvim_replace_termcodes(keys, true, false, true)
+	vim.api.nvim_feedkeys(termcodes, "n", false)
+end
+
+local function open_wikilink_under_cursor()
+	if vim.bo.filetype ~= "markdown" then
+		return false
+	end
+
+	local line = vim.api.nvim_get_current_line()
+	local col = vim.api.nvim_win_get_cursor(0)[2] + 1
+	local search_start = 1
+
+	while true do
+		local start_col, end_col = line:find("%[%[[^%]]+%]%]", search_start)
+		if not start_col then
+			return false
+		end
+
+		if col >= start_col and col <= end_col then
+			local target = line:sub(start_col + 2, end_col - 2)
+			target = vim.trim(target)
+			target = target:match("^[^|]+") or target
+			target = target:match("^[^#]+") or target
+
+			if target == "" then
+				return false
+			end
+
+			if not target:match("%.[^/]+$") then
+				target = target .. ".md"
+			end
+
+			if target:sub(1, 1) == "/" then
+				target = target:sub(2)
+			end
+
+			local path = vim.fs.normalize(vim.fs.joinpath(wikilink_root, target))
+			local dir = vim.fs.dirname(path)
+
+			vim.fn.mkdir(dir, "p")
+			if vim.fn.filereadable(path) == 0 then
+				vim.fn.writefile({}, path)
+			end
+
+			vim.cmd.edit(vim.fn.fnameescape(path))
+			return true
+		end
+
+		search_start = end_col + 1
+	end
+end
+
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "markdown",
+	callback = function(event)
+		vim.keymap.set("n", "<C-]>", function()
+			if not open_wikilink_under_cursor() then
+				feed_normal("<C-]>")
+			end
+		end, { buffer = event.buf, desc = "Open markdown wikilink" })
+	end,
+})
+
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { desc = "Show diagnostic message" })
@@ -254,25 +323,6 @@ require("lazy").setup({
 		{ "numToStr/Comment.nvim" },
 		{ "m4xshen/autoclose.nvim" },
 		{ "lewis6991/gitsigns.nvim" },
-		-- {
-		-- 	"obsidian-nvim/obsidian.nvim",
-		-- 	version = "*",
-		-- 	ft = "markdown",
-		-- 	---@module 'obsidian'
-		-- 	---@type obsidian.config
-		-- 	opts = {
-		-- 		legacy_commands = false,
-		-- 		ui = {
-		-- 			enable = false,
-		-- 		},
-		-- 		workspaces = {
-		-- 			{
-		-- 				name = "personal",
-		-- 				path = "~/Documents",
-		-- 			},
-		-- 		},
-		-- 	},
-		-- },
 		{
 			"nosduco/remote-sshfs.nvim",
 			dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },

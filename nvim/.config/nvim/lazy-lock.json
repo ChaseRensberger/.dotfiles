@@ -33,7 +33,6 @@
   "nvim-colorizer.lua": { "branch": "master", "commit": "a065833f35a3a7cc3ef137ac88b5381da2ba302e" },
   "nvim-lspconfig": { "branch": "master", "commit": "419b082102fa813739588dd82e19a8b6b2442855" },
   "nvim-treesitter": { "branch": "master", "commit": "42fc28ba918343ebfd5565147a42a26580579482" },
-  "obsidian.nvim": { "branch": "main", "commit": "20432a5ca03d99a9d5ad51d362e19d9b832e46f0" },
   "onedark": { "branch": "master", "commit": "213c23ae45a04797572242568d5d51937181792d" },
   "osaka-jade": { "branch": "main", "commit": "5dd1969a7492f3a2c0fde5d9d2472aa751c44d3b" },
   "palenight": { "branch": "master", "commit": "5552a6349bcd927df9f17db34f017b77b963e503" },
