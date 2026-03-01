@@ -254,25 +254,25 @@ require("lazy").setup({
 		{ "numToStr/Comment.nvim" },
 		{ "m4xshen/autoclose.nvim" },
 		{ "lewis6991/gitsigns.nvim" },
-		{
-			"obsidian-nvim/obsidian.nvim",
-			version = "*",
-			ft = "markdown",
-			---@module 'obsidian'
-			---@type obsidian.config
-			opts = {
-				legacy_commands = false,
-				ui = {
-					enable = false,
-				},
-				workspaces = {
-					{
-						name = "personal",
-						path = "~/Documents",
-					},
-				},
-			},
-		},
+		-- {
+		-- 	"obsidian-nvim/obsidian.nvim",
+		-- 	version = "*",
+		-- 	ft = "markdown",
+		-- 	---@module 'obsidian'
+		-- 	---@type obsidian.config
+		-- 	opts = {
+		-- 		legacy_commands = false,
+		-- 		ui = {
+		-- 			enable = false,
+		-- 		},
+		-- 		workspaces = {
+		-- 			{
+		-- 				name = "personal",
+		-- 				path = "~/Documents",
+		-- 			},
+		-- 		},
+		-- 	},
+		-- },
 		{
 			"nosduco/remote-sshfs.nvim",
 			dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
