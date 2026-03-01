@@ -20,8 +20,14 @@ export PATH=$HOME/.cargo/bin:$PATH
 export PATH=$GOPATH/bin:$PATH
 export PATH=/home/chase/.local/bin:$PATH
 export PATH=/home/chase/.opencode/bin:$PATH
+export PATH=/home/chase/Projects/wingman/clients/tui/wingcode/dist:$PATH
+export PATH=/home/chase/.wingman/bin:$PATH
+export PATH=/home/chase/.bun/bin:$PATH
 
 alias ff=fastfetch
 alias lg=lazygit
 alias open=xdg-open
 alias task=go-task
+
+# wingman
+export PATH=/home/chase/.wingman/bin:$PATH

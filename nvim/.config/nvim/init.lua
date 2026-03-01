@@ -31,7 +31,7 @@ vim.opt.showmode = false
 vim.opt.relativenumber = true
 vim.opt.clipboard = "unnamedplus"
 vim.opt.termguicolors = true
-local transparent = false
+local transparent = true
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 ---@diagnostic disable-next-line: undefined-field
@@ -254,6 +254,22 @@ require("lazy").setup({
 		{ "numToStr/Comment.nvim" },
 		{ "m4xshen/autoclose.nvim" },
 		{ "lewis6991/gitsigns.nvim" },
+		{
+			"obsidian-nvim/obsidian.nvim",
+			version = "*",
+			ft = "markdown",
+			---@module 'obsidian'
+			---@type obsidian.config
+			opts = {
+				legacy_commands = false,
+				workspaces = {
+					{
+						name = "personal",
+						path = "~/Documents",
+					},
+				},
+			},
+		},
 		{
 			"nosduco/remote-sshfs.nvim",
 			dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
