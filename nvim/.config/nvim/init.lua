@@ -321,6 +321,7 @@ require("lazy").setup({
 		{ "L3MON4D3/LuaSnip" },
 		{ "rafamadriz/friendly-snippets" },
 		{ "numToStr/Comment.nvim" },
+		{ "JoosepAlviste/nvim-ts-context-commentstring" },
 		{ "m4xshen/autoclose.nvim" },
 		{ "lewis6991/gitsigns.nvim" },
 		{
@@ -414,6 +415,7 @@ require("nvim-treesitter.configs").setup({
 		"markdown_inline",
 		"javascript",
 		"typescript",
+		"tsx",
 		"go",
 		"html",
 		"json",
@@ -536,7 +538,9 @@ require("conform").setup({
 	},
 })
 
-require("Comment").setup()
+require("Comment").setup({
+	pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook(),
+})
 vim.keymap.set("n", "<leader>/", function()
 	require("Comment.api").toggle.linewise.current()
 end, { desc = "Toggle comment on current line" })
