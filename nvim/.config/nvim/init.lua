@@ -378,6 +378,7 @@ require('lualine').setup({
 require('colorizer').setup({
 	'css',
 	'javascript',
+	'markdown',
 	html = {
 		mode = 'foreground',
 	}
