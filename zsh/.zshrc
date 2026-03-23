@@ -28,6 +28,7 @@ alias ff=fastfetch
 alias lg=lazygit
 alias open=xdg-open
 alias task=go-task
+alias oc=opencode
 
 # wingman
 export PATH=/home/chase/.wingman/bin:$PATH
