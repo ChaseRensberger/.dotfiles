@@ -302,6 +302,32 @@ require("lazy").setup({
 		{
 			"nvim-treesitter/nvim-treesitter",
 			build = ":TSUpdate",
+			opts = {
+				ensure_installed = {
+					"lua",
+					"markdown",
+					"markdown_inline",
+					"javascript",
+					"typescript",
+					"tsx",
+					"go",
+					"html",
+					"json",
+					"css",
+					"rust",
+					"yaml",
+					"scala",
+					"python",
+					"terraform",
+					"cpp",
+				},
+				sync_install = false,
+				auto_install = true,
+				highlight = {
+					enable = true,
+					additional_vim_regex_highlighting = false,
+				},
+			}
 		},
 		{
 			"williamboman/mason.nvim",
@@ -407,35 +433,6 @@ vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Telescope find f
 vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Telescope live grep" })
 vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Telescope buffers" })
 vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Telescope help tags" })
-
----@diagnostic disable-next-line: missing-fields
-require("nvim-treesitter.configs").setup({
-	ensure_installed = {
-		"lua",
-		"markdown",
-		"markdown_inline",
-		"javascript",
-		"typescript",
-		"tsx",
-		"go",
-		"html",
-		"json",
-		"css",
-		"rust",
-		"yaml",
-		"scala",
-		"python",
-		"terraform",
-		"cpp",
-	},
-	sync_install = false,
-	auto_install = true,
-
-	highlight = {
-		enable = true,
-		additional_vim_regex_highlighting = false,
-	},
-})
 
 local cmp = require("cmp")
 
