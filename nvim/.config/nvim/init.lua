@@ -276,7 +276,7 @@ require("lazy").setup({
 				})
 			end,
 		},
-		{ 'norcalli/nvim-colorizer.lua' },
+		{ 'NvChad/nvim-colorizer.lua' },
 		{
 			"luckasRanarison/tailwind-tools.nvim",
 			dependencies = { "nvim-treesitter/nvim-treesitter" },
