@@ -301,9 +301,11 @@ require("lazy").setup({
 		},
 		{
 			"nvim-treesitter/nvim-treesitter",
+			branch = "main",
+			lazy = false,
 			build = ":TSUpdate",
-			opts = {
-				ensure_installed = {
+			config = function()
+				require("nvim-treesitter").install({
 					"lua",
 					"markdown",
 					"markdown_inline",
@@ -320,14 +322,8 @@ require("lazy").setup({
 					"python",
 					"terraform",
 					"cpp",
-				},
-				sync_install = false,
-				auto_install = true,
-				highlight = {
-					enable = true,
-					additional_vim_regex_highlighting = false,
-				},
-			}
+				})
+			end,
 		},
 		{
 			"williamboman/mason.nvim",
