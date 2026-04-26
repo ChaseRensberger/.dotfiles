@@ -1,9 +1,52 @@
+-- =============================================================================
+-- Options
+-- =============================================================================
+
 vim.g.mapleader = " "
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.number = true
+vim.opt.showmode = false
+vim.opt.relativenumber = true
+vim.opt.clipboard = "unnamedplus"
+vim.opt.termguicolors = true
+local transparent = false
+
+-- =============================================================================
+-- Keymaps
+-- =============================================================================
+
 vim.keymap.set("n", "<leader>e", vim.cmd.Ex)
 vim.keymap.set("n", "<leader>b", "<C-^>", { desc = "Jump to previous buffer" })
 vim.keymap.set("n", "<leader>q", "<cmd>edit ~/Documents/quick.md<CR>", { desc = "Open quick note" })
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { desc = "Show diagnostic message" })
+vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename)
 
--- Poor man's obsidian plugin
+vim.keymap.set("n", "<leader>cd", function()
+	local line = vim.api.nvim_win_get_cursor(0)[1] - 1
+	local diagnostics = vim.diagnostic.get(0, { lnum = line })
+
+	if #diagnostics == 0 then
+		vim.notify("No diagnostic on this line", vim.log.levels.INFO)
+		return
+	end
+
+	local messages = {}
+	for _, diagnostic in ipairs(diagnostics) do
+		table.insert(messages, diagnostic.message)
+	end
+
+	local text = table.concat(messages, "\n")
+	vim.fn.setreg("+", text)
+	vim.notify("Diagnostic copied to clipboard", vim.log.levels.INFO)
+end, { desc = "Copy diagnostic message to clipboard" })
+
+-- =============================================================================
+-- Wikilinks (poor man's obsidian plugin)
+-- =============================================================================
+
 local wikilink_root = vim.fs.normalize(vim.fn.expand("~/Documents"))
 
 local function feed_normal(keys)
@@ -71,36 +114,9 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
-vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
-vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
-vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { desc = "Show diagnostic message" })
-vim.keymap.set("n", "<leader>cd", function()
-	local line = vim.api.nvim_win_get_cursor(0)[1] - 1
-	local diagnostics = vim.diagnostic.get(0, { lnum = line })
-
-	if #diagnostics == 0 then
-		vim.notify("No diagnostic on this line", vim.log.levels.INFO)
-		return
-	end
-
-	local messages = {}
-	for _, diagnostic in ipairs(diagnostics) do
-		table.insert(messages, diagnostic.message)
-	end
-
-	local text = table.concat(messages, "\n")
-	vim.fn.setreg("+", text)
-	vim.notify("Diagnostic copied to clipboard", vim.log.levels.INFO)
-end, { desc = "Copy diagnostic message to clipboard" })
-vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename)
-vim.opt.tabstop = 4
-vim.opt.shiftwidth = 4
-vim.opt.number = true
-vim.opt.showmode = false
-vim.opt.relativenumber = true
-vim.opt.clipboard = "unnamedplus"
-vim.opt.termguicolors = true
-local transparent = false
+-- =============================================================================
+-- Lazy bootstrap
+-- =============================================================================
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 ---@diagnostic disable-next-line: undefined-field
@@ -119,128 +135,44 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+-- =============================================================================
+-- Plugins
+-- =============================================================================
+
+local colorschemes = {
+	{ "Shatur/neovim-ayu",             name = "ayu" },
+	{ "EdenEast/nightfox.nvim",        name = "carbonfox" },
+	{ "catppuccin/nvim",               name = "catppuccin" },
+	{ "lalitmee/cobalt2.nvim",         name = "cobalt2" },
+	{ "Mofiqul/dracula.nvim",          name = "dracula" },
+	{ "sainnhe/everforest",            name = "everforest" },
+	{ "kepano/flexoki-neovim",         name = "flexoki" },
+	{ "projekt0n/github-nvim-theme",   name = "github-theme" },
+	{ "ellisonleao/gruvbox.nvim",      name = "gruvbox" },
+	{ "rebelot/kanagawa.nvim",         name = "kanagawa" },
+	{ "marko-cerovac/material.nvim",   name = "material" },
+	{ "tanvirtin/monokai.nvim",        name = "monokai" },
+	{ "oxfist/night-owl.nvim",         name = "night-owl" },
+	{ "shaunsingh/nord.nvim",          name = "nord" },
+	{ "navarasu/onedark.nvim",         name = "onedark" },
+	{ "craftzdog/solarized-osaka.nvim", name = "osaka-jade" },
+	{ "drewtempelmeyer/palenight.vim", name = "palenight" },
+	{ "rose-pine/neovim",              name = "rosepine" },
+	{ "maxmx03/solarized.nvim",        name = "solarized" },
+	{ "lunarvim/synthwave84.nvim",     name = "synthwave84" },
+	{ "folke/tokyonight.nvim",         name = "tokyonight" },
+	{ "datsfilipe/vesper.nvim",        name = "vesper" },
+	{ "phha/zenburn.nvim",             name = "zenburn" },
+	{ "chaserensberger/christmas.nvim", name = "christmas" },
+}
+
+local colorscheme_specs = {}
+for _, cs in ipairs(colorschemes) do
+	table.insert(colorscheme_specs, { cs[1], name = cs.name, lazy = false })
+end
+
 require("lazy").setup({
-	spec = {
-		{
-			"Shatur/neovim-ayu",
-			name = "ayu",
-			lazy = false,
-		},
-		{
-			"EdenEast/nightfox.nvim",
-			name = "carbonfox",
-			lazy = false,
-		},
-		{
-			"catppuccin/nvim",
-			name = "catppuccin",
-			lazy = false,
-		},
-		{
-			"lalitmee/cobalt2.nvim",
-			name = "cobalt2",
-			lazy = false,
-		},
-		{
-			'Mofiqul/dracula.nvim',
-			name = "dracula",
-			lazy = false,
-		},
-		{
-			"sainnhe/everforest",
-			name = "everforest",
-			lazy = false,
-		},
-		{
-			"kepano/flexoki-neovim",
-			name = "flexoki",
-			lazy = false,
-		},
-		{
-			"projekt0n/github-nvim-theme",
-			name = "github-theme",
-			lazy = false,
-		},
-		{
-			"ellisonleao/gruvbox.nvim",
-			name = "gruvbox",
-			lazy = false,
-		},
-		{
-			"rebelot/kanagawa.nvim",
-			name = "kanagawa",
-			lazy = false,
-		},
-		{
-			"marko-cerovac/material.nvim",
-			name = "material",
-			lazy = false,
-		},
-		{
-			"tanvirtin/monokai.nvim",
-			name = "monokai",
-			lazy = false,
-		},
-		{
-			"oxfist/night-owl.nvim",
-			name = "night-owl",
-			lazy = false,
-		},
-		{
-			"shaunsingh/nord.nvim",
-			name = "nord",
-			lazy = false,
-		},
-		{
-			"navarasu/onedark.nvim",
-			name = "onedark",
-			lazy = false,
-		},
-		{
-			"craftzdog/solarized-osaka.nvim",
-			name = "osaka-jade",
-			lazy = false,
-		},
-		{
-			"drewtempelmeyer/palenight.vim",
-			name = "palenight",
-			lazy = false,
-		},
-		{
-			"rose-pine/neovim",
-			name = "rosepine",
-			lazy = false,
-		},
-		{
-			"maxmx03/solarized.nvim",
-			name = "solarized",
-			lazy = false,
-		},
-		{
-			"lunarvim/synthwave84.nvim",
-			name = "synthwave84",
-			lazy = false,
-		},
-		{
-			"folke/tokyonight.nvim",
-			name = "tokyonight",
-			lazy = false,
-		},
-		{
-			"datsfilipe/vesper.nvim",
-			name = "vesper",
-			lazy = false,
-		},
-		{
-			"phha/zenburn.nvim",
-			name = "zenburn",
-			lazy = false,
-		},
-		{
-			"chaserensberger/christmas.nvim",
-			name = "christmas",
-			lazy = false,
-		},
+	spec = vim.list_extend(colorscheme_specs, {
 		{
 			"zaldih/themery.nvim",
 			lazy = false,
@@ -356,9 +288,13 @@ require("lazy").setup({
 				require("veil").setup()
 			end,
 		}
-	},
+	}),
 	checker = { enabled = false },
 })
+
+-- =============================================================================
+-- Transparency
+-- =============================================================================
 
 if transparent then
 	vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
@@ -375,7 +311,9 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 	end,
 })
 
-require("veil").setup()
+-- =============================================================================
+-- Plugin config
+-- =============================================================================
 
 require("gitsigns").setup({
 	current_line_blame = false,
@@ -404,7 +342,6 @@ require('colorizer').setup({
 		mode = 'foreground',
 	}
 })
-
 
 require("remote-sshfs").setup()
 local api = require("remote-sshfs.api")
@@ -564,6 +501,10 @@ end
 
 vim.api.nvim_create_user_command("DisableLSP", disable_lsp, {})
 
+-- =============================================================================
+-- Snippets
+-- =============================================================================
+
 local ls = require("luasnip")
 local s = ls.snippet
 local t = ls.text_node
@@ -620,6 +561,10 @@ vim.keymap.set("i", "<C-k>", function()
 	end
 end, { silent = true })
 
+-- =============================================================================
+-- Harpoon
+-- =============================================================================
+
 local harpoon = require("harpoon")
 harpoon:setup()
 
@@ -647,6 +592,10 @@ vim.keymap.set("n", "<leader>hc", function()
 		harpoon:list():remove_at(i)
 	end
 end)
+
+-- =============================================================================
+-- DAP (disabled)
+-- =============================================================================
 
 -- local dap = require("dap")
 -- local dapui = require("dapui")
