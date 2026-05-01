@@ -140,29 +140,29 @@ vim.opt.rtp:prepend(lazypath)
 -- =============================================================================
 
 local colorschemes = {
-	{ "Shatur/neovim-ayu",             name = "ayu" },
-	{ "EdenEast/nightfox.nvim",        name = "carbonfox" },
-	{ "catppuccin/nvim",               name = "catppuccin" },
-	{ "lalitmee/cobalt2.nvim",         name = "cobalt2" },
-	{ "Mofiqul/dracula.nvim",          name = "dracula" },
-	{ "sainnhe/everforest",            name = "everforest" },
-	{ "kepano/flexoki-neovim",         name = "flexoki" },
-	{ "projekt0n/github-nvim-theme",   name = "github-theme" },
-	{ "ellisonleao/gruvbox.nvim",      name = "gruvbox" },
-	{ "rebelot/kanagawa.nvim",         name = "kanagawa" },
-	{ "marko-cerovac/material.nvim",   name = "material" },
-	{ "tanvirtin/monokai.nvim",        name = "monokai" },
-	{ "oxfist/night-owl.nvim",         name = "night-owl" },
-	{ "shaunsingh/nord.nvim",          name = "nord" },
-	{ "navarasu/onedark.nvim",         name = "onedark" },
+	{ "Shatur/neovim-ayu",              name = "ayu" },
+	{ "EdenEast/nightfox.nvim",         name = "carbonfox" },
+	{ "catppuccin/nvim",                name = "catppuccin" },
+	{ "lalitmee/cobalt2.nvim",          name = "cobalt2" },
+	{ "Mofiqul/dracula.nvim",           name = "dracula" },
+	{ "sainnhe/everforest",             name = "everforest" },
+	{ "kepano/flexoki-neovim",          name = "flexoki" },
+	{ "projekt0n/github-nvim-theme",    name = "github-theme" },
+	{ "ellisonleao/gruvbox.nvim",       name = "gruvbox" },
+	{ "rebelot/kanagawa.nvim",          name = "kanagawa" },
+	{ "marko-cerovac/material.nvim",    name = "material" },
+	{ "tanvirtin/monokai.nvim",         name = "monokai" },
+	{ "oxfist/night-owl.nvim",          name = "night-owl" },
+	{ "shaunsingh/nord.nvim",           name = "nord" },
+	{ "navarasu/onedark.nvim",          name = "onedark" },
 	{ "craftzdog/solarized-osaka.nvim", name = "osaka-jade" },
-	{ "drewtempelmeyer/palenight.vim", name = "palenight" },
-	{ "rose-pine/neovim",              name = "rosepine" },
-	{ "maxmx03/solarized.nvim",        name = "solarized" },
-	{ "lunarvim/synthwave84.nvim",     name = "synthwave84" },
-	{ "folke/tokyonight.nvim",         name = "tokyonight" },
-	{ "datsfilipe/vesper.nvim",        name = "vesper" },
-	{ "phha/zenburn.nvim",             name = "zenburn" },
+	{ "drewtempelmeyer/palenight.vim",  name = "palenight" },
+	{ "rose-pine/neovim",               name = "rosepine" },
+	{ "maxmx03/solarized.nvim",         name = "solarized" },
+	{ "lunarvim/synthwave84.nvim",      name = "synthwave84" },
+	{ "folke/tokyonight.nvim",          name = "tokyonight" },
+	{ "datsfilipe/vesper.nvim",         name = "vesper" },
+	{ "phha/zenburn.nvim",              name = "zenburn" },
 	{ "chaserensberger/christmas.nvim", name = "christmas" },
 }
 
@@ -394,7 +394,7 @@ cmp.setup({
 
 require("mason").setup()
 require("mason-lspconfig").setup({
-	ensure_installed = { "lua_ls", "ts_ls", "gopls", "html", "cssls", "rust_analyzer", "clangd", "ruff" },
+	ensure_installed = { "lua_ls", "ts_ls", "gopls", "html", "cssls", "rust_analyzer", "clangd", "ruff", "tailwindcss" },
 	automatic_installation = true,
 	automatic_enable = true,
 })
@@ -406,7 +406,7 @@ vim.lsp.config.tailwindcss = {
 	settings = {
 		tailwindCSS = {
 			experimental = {
-				configFile = vim.fs.joinpath(vim.fn.getcwd(), "clients/wui/shared/core/src/styles/globals.css"),
+				configFile = vim.fs.joinpath(vim.fn.getcwd(), "src/globals.css"),
 			},
 		},
 	},
