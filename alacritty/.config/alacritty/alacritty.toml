@@ -29,7 +29,7 @@ white   = '#ebdbb2'
 opacity = 1
 
 [font]
-size = 12
+size = 10
 
 [font.normal]
 family = "FiraCode Nerd Font Mono"
