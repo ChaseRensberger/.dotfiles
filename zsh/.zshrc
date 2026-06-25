@@ -16,6 +16,7 @@ alias vim=nvim
 
 export PATH=$HOME/.asdf/shims:$PATH
 export PATH=$HOME/.cargo/bin:$PATH
+export GOPATH="$(go env GOPATH)"
 export PATH=$GOPATH/bin:$PATH
 export PATH=/home/chase/.local/bin:$PATH
 export PATH=/home/chase/.opencode/bin:$PATH
