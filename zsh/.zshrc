@@ -12,7 +12,6 @@ source $ZSH/oh-my-zsh.sh
 [ -f ~/.secrets ] && source ~/.secrets
 
 export EDITOR=nvim
-alias vim=nvim
 
 export PATH=$HOME/.asdf/shims:$PATH
 export PATH=$HOME/.cargo/bin:$PATH
