@@ -140,9 +140,11 @@ vim.opt.rtp:prepend(lazypath)
 -- =============================================================================
 
 local colorschemes = {
+	{ "idr4n/andromeda.nvim",           name = "andromeda" },
 	{ "Shatur/neovim-ayu",              name = "ayu" },
 	{ "EdenEast/nightfox.nvim",         name = "carbonfox" },
 	{ "catppuccin/nvim",                name = "catppuccin" },
+	{ "chaserensberger/christmas.nvim", name = "christmas" },
 	{ "lalitmee/cobalt2.nvim",          name = "cobalt2" },
 	{ "Mofiqul/dracula.nvim",           name = "dracula" },
 	{ "sainnhe/everforest",             name = "everforest" },
@@ -163,7 +165,6 @@ local colorschemes = {
 	{ "folke/tokyonight.nvim",          name = "tokyonight" },
 	{ "datsfilipe/vesper.nvim",         name = "vesper" },
 	{ "phha/zenburn.nvim",              name = "zenburn" },
-	{ "chaserensberger/christmas.nvim", name = "christmas" },
 }
 
 local colorscheme_specs = {}
@@ -177,11 +178,13 @@ require("lazy").setup({
 			"zaldih/themery.nvim",
 			lazy = false,
 			config = function()
-				require("themery").setup({
-					themes = {
+					require("themery").setup({
+						themes = {
+						{ name = "andromeda",   colorscheme = "andromeda" },
 						{ name = "ayu",         colorscheme = "ayu" },
 						{ name = "carbonfox",   colorscheme = "carbonfox" },
 						{ name = "catppuccin",  colorscheme = "catppuccin" },
+						{ name = "christmas",   colorscheme = "christmas" },
 						{ name = "cobalt2",     colorscheme = "cobalt2" },
 						{ name = "dracula",     colorscheme = "dracula" },
 						{ name = "everforest",  colorscheme = "everforest" },
@@ -201,8 +204,7 @@ require("lazy").setup({
 						{ name = "synthwave84", colorscheme = "synthwave84" },
 						{ name = "tokyonight",  colorscheme = "tokyonight" },
 						{ name = "vesper",      colorscheme = "vesper" },
-						{ name = "zenburn",     colorscheme = "zenburn" },
-						{ name = "christmas",   colorscheme = "christmas" }
+						{ name = "zenburn",     colorscheme = "zenburn" }
 					},
 					livePreview = true,
 				})
