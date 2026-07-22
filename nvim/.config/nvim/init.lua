@@ -24,6 +24,78 @@ vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { desc = "Show diagnostic message" })
 vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename)
 
+local function opencode_directory()
+	if vim.bo.filetype == "netrw" then
+		return vim.b.netrw_curdir or vim.fn.getcwd()
+	end
+
+	local path = vim.api.nvim_buf_get_name(0)
+	return path == "" and vim.fn.getcwd() or vim.fs.dirname(path)
+end
+
+local function default_terminal_exec()
+	local desktop_file = vim.fn.systemlist({ "xdg-mime", "query", "default", "application/x-terminal-emulator" })[1]
+	if not desktop_file or desktop_file == "" then
+		return nil
+	end
+
+	local data_dirs = vim.env.XDG_DATA_DIRS or "/usr/local/share:/usr/share"
+	local data_home = vim.env.XDG_DATA_HOME or vim.fn.expand("~/.local/share")
+	for _, data_dir in ipairs(vim.list_extend({ data_home }, vim.split(data_dirs, ":", { plain = true }))) do
+		local path = vim.fs.joinpath(data_dir, "applications", desktop_file)
+		local file = io.open(path, "r")
+		if file then
+			for line in file:lines() do
+				local command = line:match("^Exec=(.+)$")
+				if command then
+					file:close()
+					return command:gsub("%s*%%[fFuUdDnNickvm]", "")
+				end
+			end
+			file:close()
+		end
+	end
+end
+
+vim.keymap.set("n", "<leader>f", function()
+	local directory = opencode_directory()
+	local launcher = vim.fn.exepath("xdg-terminal-exec")
+	local command
+
+	if launcher ~= "" then
+		command = { launcher, "opencode" }
+	else
+		local terminal = default_terminal_exec()
+		if not terminal then
+			vim.notify("No default terminal emulator is configured", vim.log.levels.ERROR)
+			return
+		end
+		command = { vim.o.shell, vim.o.shellcmdflag, terminal .. " -e opencode" }
+	end
+
+	vim.fn.jobstart(command, { cwd = directory, detach = true })
+end, { desc = "Open OpenCode in current directory" })
+
+local solutions_root = vim.fs.normalize(vim.fn.expand("~/Solutions"))
+
+vim.api.nvim_create_user_command("SSol", function(opts)
+	local relative_path = opts.args
+	if relative_path:sub(1, 1) == "/" or vim.tbl_contains(vim.split(relative_path, "/", { plain = true }), "..") then
+		vim.notify("Solution path must stay within ~/Solutions", vim.log.levels.ERROR)
+		return
+	end
+
+	local destination = vim.fs.joinpath(solutions_root, relative_path)
+	if vim.fn.filereadable(destination) == 1 and not opts.bang then
+		vim.notify("Solution already exists; use :SSol! to overwrite it", vim.log.levels.ERROR)
+		return
+	end
+
+	vim.fn.mkdir(vim.fs.dirname(destination), "p")
+	vim.fn.writefile(vim.api.nvim_buf_get_lines(0, 0, -1, false), destination, vim.bo.endofline and "" or "b")
+	vim.notify("Saved solution to " .. destination)
+end, { nargs = 1, bang = true, desc = "Save current buffer under ~/Solutions" })
+
 vim.keymap.set("n", "<leader>cd", function()
 	local line = vim.api.nvim_win_get_cursor(0)[1] - 1
 	local diagnostics = vim.diagnostic.get(0, { lnum = line })
