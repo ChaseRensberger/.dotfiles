@@ -276,7 +276,8 @@ require("lazy").setup({
 						{ name = "synthwave84", colorscheme = "synthwave84" },
 						{ name = "tokyonight",  colorscheme = "tokyonight" },
 						{ name = "vesper",      colorscheme = "vesper" },
-						{ name = "zenburn",     colorscheme = "zenburn" }
+						{ name = "zenburn",     colorscheme = "zenburn" },
+						{ name = "wingman",     colorscheme = "wingman" },
 					},
 					livePreview = true,
 				})
