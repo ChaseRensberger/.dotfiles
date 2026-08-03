@@ -25,6 +25,7 @@ export PATH=/home/chase/.bun/bin:$PATH
 
 alias ff=fastfetch
 alias lg=lazygit
+alias ld=lazydocker
 alias open=xdg-open
 alias task=go-task
 alias oc=opencode
