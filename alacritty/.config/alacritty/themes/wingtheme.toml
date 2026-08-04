@@ -1,4 +1,4 @@
-# Wingman dark
+# Wingtheme dark
 
 [colors.primary]
 background = '#09090b'
@@ -23,7 +23,7 @@ cyan    = '#67c9d8'
 white   = '#9f9fa9'
 
 [colors.bright]
-black   = '#27272a'
+black   = '#71717a'
 red     = '#ff8789'
 green   = '#73e39a'
 yellow  = '#f4cf7d'

@@ -4,7 +4,7 @@ if vim.fn.exists("syntax_on") then
 end
 
 vim.o.background = "dark"
-vim.g.colors_name = "wingman"
+vim.g.colors_name = "wingtheme"
 
 local colors = {
 	background = "#09090b",

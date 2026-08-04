@@ -277,7 +277,7 @@ require("lazy").setup({
 						{ name = "tokyonight",  colorscheme = "tokyonight" },
 						{ name = "vesper",      colorscheme = "vesper" },
 						{ name = "zenburn",     colorscheme = "zenburn" },
-						{ name = "wingman",     colorscheme = "wingman" },
+						{ name = "wingtheme",   colorscheme = "wingtheme" },
 					},
 					livePreview = true,
 				})
