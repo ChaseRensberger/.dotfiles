@@ -28,7 +28,6 @@ alias lg=lazygit
 alias ld=lazydocker
 alias open=xdg-open
 alias task=go-task
-alias oc=opencode
+alias oc=opencode2
 
 export PATH=/home/chase/.wingman/bin:$PATH
-export OPENCODE_ENABLE_EXA=1
