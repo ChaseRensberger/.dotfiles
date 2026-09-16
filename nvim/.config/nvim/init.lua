@@ -522,11 +522,13 @@ end
 require("conform").setup({
 	formatters_by_ft = {
 		lua = { "stylua" },
-		javascript = { "prettierd" },
-		typescript = { "prettierd" },
-		html = { "prettierd" },
-		json = { "prettierd" },
-		css = { "prettierd" },
+		javascript = { "oxfmt" },
+		javascriptreact = { "oxfmt" },
+		typescript = { "oxfmt" },
+		typescriptreact = { "oxfmt" },
+		html = { "oxfmt" },
+		json = { "oxfmt" },
+		css = { "oxfmt" },
 		go = { "gofumpt" },
 		rust = { "rust-analyzer" },
 		python = { "ruff_fix", "ruff_format", "ruff_organize_imports" },
